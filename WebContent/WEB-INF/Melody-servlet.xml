@@ -10,5 +10,5 @@
 
 	<context:component-scan base-package="web"/>
 
-	<!--  <bean id="dao" class="data.StateFileDAO"/>-->
+	  <bean id="MelodyGenerator" class="web.MelodyGenerator"/>
 </beans>
