@@ -20,20 +20,18 @@ public class PhraseGenerator {
 		this.pitch = pitch;
 		this.octave = octave;
 		this.title = title;
-		//String pitchString = pitch+""+octave;
 		char pitchChar = pitch.charAt(0);
-		int pitchInt = (pitchChar-65)*octave;
+		int pitchInt = (int)(pitchChar-65)*(octave*12);
+		System.out.println(pitchInt);
 		this.phrase.addNote(pitchInt, duration);
-		phrase.setTempo(200.0);
-		phrase.addNote(pitchInt+4, duration);
 		Play.midi(phrase);
 	}
 
-	public String getDuration() {
+	public double getDuration() {
 		return duration;
 	}
 
-	public void setDuration(String duration) {
+	public void setDuration(double duration) {
 		this.duration = duration;
 	}
 

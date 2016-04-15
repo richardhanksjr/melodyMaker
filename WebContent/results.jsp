@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>${duration}</div>
+	<div>${phrase}</div>
+	<c:forEach var = "phrases" items = "${phrase}"
+	</c:forEach>
 </body>
 </html>
