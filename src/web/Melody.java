@@ -75,6 +75,20 @@ public class Melody {
 		
 	}
 	
+	@RequestMapping("editMelody.do")
+	public String editMelody(@RequestParam("index") int index,
+							@RequestParam("pitch") int pitch,
+							@RequestParam("rhythm") double rhythm,
+							@RequestParam("title") String title,
+							@RequestParam("noteIndex") int noteIndex,
+							@ModelAttribute("melodies") ArrayList<Phrase> phrasemap){
+		System.out.println(noteIndex);
+//		Note newNote = new Note(pitch, rhythm);
+//		Phrase phraseToEdit = phrasemap.get(index);
+//		phraseToEdit.setNote(newNote, );
+		return "index.jsp";
+		
+	}
 	@RequestMapping("playMelody.do")
 	public ModelAndView playPhrase(@RequestParam("title") String title,
 							@RequestParam("submit") String submit,
@@ -89,6 +103,7 @@ public class Melody {
 				if(title.equals(phrase.getTitle())){
 					Play.midi(phrase);
 				}
+				mv.setViewName("index.jsp");
 			}
 			break;
 		case "Phase Melody":
@@ -96,6 +111,7 @@ public class Melody {
 				if(title.equals(phrase.getTitle())){
 					phaseMelody(phrase);
 				}
+				mv.setViewName("index.jsp");
 			}
 			break;
 		case "Polyphony Melody":
@@ -103,23 +119,30 @@ public class Melody {
 				if(title.equals(phrase.getTitle())){
 					polyMelody(phrase);
 				}
+				mv.setViewName("index.jsp");
 			}
 			break;
 		case "Stop Playback":
 			Play.stopMidi();
+			mv.setViewName("index.jsp");
 			break;
 		case "Edit":
 			for(Phrase phrase: phrasemap){
 				if(title.equals(phrase.getTitle())){
-					
-					mv.setViewName("results.jsp");
 					mv.addObject("notes", phrase.getNoteList());
+					mv.addObject("index", phrasemap.indexOf(phrase));
+					mv.addObject("phrase", phrase);
+					mv.addObject("noteIndex", 0);
+					
 				}
 			}
+			mv.setViewName("results.jsp");
 		}
 		
 			
 		return mv;
+		//return "index.jsp";
+		
 }
 	private void polyMelody(Phrase phrase){
 		Score score = new Score("Poly");

@@ -9,11 +9,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>${phrase}</div>
-	<c:forEach var = "note" items = "${notes}">
-		<div>${note.pitch}</div>
-		<form>
-			<input type ="text" name = "pitch" value = "${note.pitch}"><br>
+	<c:forEach var = "note" items = "${notes}" varStatus = "status">
+		<div>${note}</div>
+		<form action = "editMelody.do" method = "GET">
+			<input type = "hidden" name = "index" value = "${index}"><br>
+			<input type ="text" name = "pitch" value = "${note.pitch}">Pitch<br>
+			<input type = "hidden" name = "noteIndex" value = "${status.index}">
+			<input type ="text" name = "rhythm" value = "${note.rhythmValue}">Duration<br>
+			<input type = "text" name ="title" value = "${phrase.title}"><br>
+			<input type = "submit" name = "submit" value = "Edit"><br>
 		</form>
 	</c:forEach>
 </body>

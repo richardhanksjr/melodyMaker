@@ -56,7 +56,7 @@
 </form>
 
 
- 	<c:forEach var = "phrases" items = "${melodies}">
+ 	 <c:forEach var = "phrases" items = "${melodies}">
  	<form action = "playMelody.do" method = "GET">
 	"${phrases.title}"
 	<input type = "hidden" name = "title" value = "${phrases.title}">
@@ -67,7 +67,7 @@
 	<input type = "submit" name = "submit" value = "Edit">
 	
 	</form>
-	</c:forEach>
+	</c:forEach> 
 
 </body>
 	
