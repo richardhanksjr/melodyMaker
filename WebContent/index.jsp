@@ -61,6 +61,11 @@
 	"${phrases.title}"
 	<input type = "hidden" name = "title" value = "${phrases.title}">
 	<input type = "submit" name = "submit" value = "Play Melody">
+	<input type = "submit" name = "submit" value = "Phase Melody">
+	<input type = "submit" name = "submit" value = "Polyphony Melody">
+	<input type = "submit" name = "submit" value = "Stop Playback">
+	<input type = "submit" name = "submit" value = "Edit">
+	
 	</form>
 	</c:forEach>
 
