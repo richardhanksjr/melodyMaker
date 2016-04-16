@@ -19,7 +19,6 @@ public class MelodyGenerator {
 //		return phrase;
 //	}
 	
-	
 	public void newPhrase(String title){
 		phrase = new Phrase(title, 0.0);
 	}
@@ -30,16 +29,17 @@ public class MelodyGenerator {
 	public void addNoteToPhrase(Note note){
 		
 		this.phrase.add(note);
-		Phrase phraseHolder = new Phrase(0.0);
-		phraseHolder.addNote(note);
-		System.out.println("phrase length" + phrase.length());
-		Play.midi(note);
+//		Phrase phraseHolder = new Phrase(0.0);
+//		phraseHolder.addNote(note);
+//		System.out.println("phrase length" + phrase.length());
+//		Play.midi(note);
 	}
 	
 	public Phrase getPhrase(){
-		Phrase newPhrase = this.phrase.copy();
-		this.phrase.empty();
-		return newPhrase;
+//		Play.midi(this.phrase);
+		//Phrase newPhrase = this.phrase.copy();
+		//this.phrase.empty();
+		return this.phrase;
 	}
 	
 	public void emptyPhrase(){

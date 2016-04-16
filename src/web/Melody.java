@@ -38,22 +38,23 @@ public class Melody {
 		
 	}
 	@RequestMapping("addNote.do")
-	public String addNote(@RequestParam("duration") double duration,
-									@RequestParam("pitch") String pitch,
+	public String addNoteToPhrase(@RequestParam("duration") double duration,
+									@RequestParam("pitch") int pitch,
 									@RequestParam("octave") int octave) {
-		char pitchChar = pitch.charAt(0);
-		int pitchInt = (int)(pitchChar-65)*(octave*12);
+	
+		int pitchInt = pitch + (octave*12);
 		Note note = new Note(pitchInt, duration);
 		melodyGenerator.addNoteToPhrase(note);
 		return "index.jsp";	
 	}
 
 	@RequestMapping("addMelody.do")
-	public String addMelody(@RequestParam("title") String title,
+	public String addMelody(
 			@ModelAttribute("melodies") ArrayList<Phrase> phrasemap) throws IOException{
 		
 		//melodyGenerator.emptyPhrase();
-		//phrasemap.add(melodyGenerator.getPhrase());
+		phrasemap.add(melodyGenerator.getPhrase());
+		System.out.println(melodyGenerator.getPhrase());
 		//melodyGenerator.emptyPhrase();
 		//String path = getServletContext().getRealPath("WebContent/midi/");
 		//File file = new File(path);
@@ -64,15 +65,25 @@ public class Melody {
 		Note n = new Note(120, 4.0);
 		//Play.midi(n);
 		//Phrase phraseHolder = melodyGenerator.getPhrase();
-		Play.midi(melodyGenerator.getPhrase());
+		Phrase phraseHolder = melodyGenerator.getPhrase();
+		//phraseHolder.addNote(n);
+		Play.midi(phraseHolder);
+	
 		return "index.jsp";
 		
 	}
 	
-	@RequestMapping("playPhrase.do")
-	public String playPhrase(@RequestParam("title") String title){
-		//Play.audio(phrases.get(title), jm.constants.Instruments.PIANO);
-		Write.midi();
+	@RequestMapping("playMelody.do")
+	public String playPhrase(@RequestParam("title") String title,
+							@ModelAttribute("melodies") ArrayList<Phrase> phrasemap){
+		System.out.println("in here");
+		System.out.println(title);
+		for(Phrase phrase: phrasemap){
+			System.out.println(phrase.getTitle());
+			if(title.equals(phrase.getTitle())){
+				Play.midi(phrase);
+			}
+		}
 		return "index.jsp";
 }
 }
