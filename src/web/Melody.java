@@ -1,14 +1,8 @@
 package web;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +18,6 @@ import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
 import jm.music.tools.Mod;
-import jm.util.Convert;
 import jm.util.Play;
 
 @Controller
@@ -106,17 +99,23 @@ public class Melody {
 	@RequestMapping("editMelody.do")
 	public String editMelody(@RequestParam("index") int index,
 							@RequestParam("pitch") int pitch,
+							@RequestParam("octave") int octave,
 							@RequestParam("rhythm") double rhythm,
 							@RequestParam("noteIndex") int noteIndex,
-							@ModelAttribute("melodies") ArrayList<Phrase> phrasemap){
-		
+							@ModelAttribute("melodies") ArrayList<Phrase> phrasemap) throws Exception{
+		try{
 		Phrase phraseHolder = phrasemap.get(index);
-		Note newNote = new Note(pitch, rhythm);
+		//int pitchInt = (int)(pitch.charAt(0));
+		int convertedPitch = pitch + (octave*12);
+		Note newNote = new Note(convertedPitch, rhythm);
 		phraseHolder.setNote(newNote, noteIndex);
 //		Note newNote = new Note(pitch, rhythm);
 //		Phrase phraseToEdit = phrasemap.get(index);
 //		phraseToEdit.setNote(newNote, );
 		return "index.jsp";
+		}catch (Exception e){
+			return "edit.jsp";
+		}
 		
 	}
 	@RequestMapping("playMelody.do")

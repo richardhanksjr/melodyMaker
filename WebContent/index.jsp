@@ -24,8 +24,12 @@
 	<input type = "radio" name = "duration" value = "2.0"/><img class = "note" src = "https://giaoduccontusom.files.wordpress.com/2010/05/halfnote.jpg"><br>
 	<input type = "radio" name = "duration" value = "1.0"/><img class = "note" src = "http://s3.amazonaws.com/static.graphemica.com/glyphs/i500s/000/001/751/original/1D15F-500x500.png?1275290601"><br>
 	<input type = "radio" name = "duration" value = "0.5"/><img class = "note" src = "http://images.clipartpanda.com/eighth-note-clip-art-eighth_note-800px.png"><br>
+	
+	<select name = "duration">
+		<option value = "4.0">Whole Note</option>
+	</select>
 	<div>PITCH</div>
-	<input type = "radio" name = "pitch" value = "21">A<br>
+	<!-- <input type = "radio" name = "pitch" value = "21">A<br>
 	<input type = "radio" name = "pitch" value = "22">A#/Bb<br>
 	<input type = "radio" name = "pitch" value = "23">B<br>
 	<input type = "radio" name = "pitch" value = "24">C<br>
@@ -45,7 +49,30 @@
 	<input type = "radio" name = "octave" value = "3">3<br>
 	<input type = "radio" name = "octave" value = "4">4<br>
 	<input type = "radio" name = "octave" value = "5">5<br>
-	<input type = "radio" name = "octave" value = "6">6<br>
+	<input type = "radio" name = "octave" value = "6">6<br> -->
+	<select name = "pitch">
+				<option value = "21">A</option>
+				<option value = "22">A#/Bb</option>
+				<option value = "23">B</option>
+				<option value = "24">C</option>
+				<option value = "25">C#/Db</option>
+				<option value = "26">D</option>
+				<option value = "27">D#/Eb</option>
+				<option value = "28">E</option>
+				<option value = "29">F</option>
+				<option value = "30">F#/Gb</option>
+				<option value = "31">G</option>
+				<option value = "32">G#/Ab</option>
+
+			</select>
+			<select name = "octave">
+				<option value = "1">1</option>
+				<option value = "2">2</option>
+				<option value = "3">3</option>
+				<option value = "4">4</option>
+				<option value = "5">5</option>
+				<option value = "6">6</option>
+			</select>
 	<input type = "submit" name = "submit" value = "submit"/>
 </form>
 <form action = "addMelody.do" method = "GET">
