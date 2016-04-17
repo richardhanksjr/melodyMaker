@@ -11,4 +11,5 @@
 	<context:component-scan base-package="web"/>
 
 	  <bean id="MelodyGenerator" class="web.MelodyGenerator"/>
+	  
 </beans>

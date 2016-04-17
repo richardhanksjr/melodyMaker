@@ -12,8 +12,8 @@
 <title>Create a Melody</title>
 </head>
 <body>
-<a href="#" onClick="MIDIjs.play('midi/african0.mid');">Play hinematov.mid</a>
- <a href="#" onClick="MIDIjs.stop();">Stop MIDI Playback</a>
+
+
  <form action = "setTitle.do" method = "GET">
   	<div>TITLE</div>
  	<input type = "text" name = "title" value = ""/><br>
@@ -68,6 +68,9 @@
 	
 	</form>
 	</c:forEach> 
+	<form action = "loadMelodies.do" method = "GET">
+	<input type = "submit" name = "loadMelodies" value = "Load Phrases From File">
+	</form>
 
 </body>
 	

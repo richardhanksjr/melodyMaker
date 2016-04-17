@@ -1,8 +1,14 @@
 package web;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +24,13 @@ import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
 import jm.music.tools.Mod;
+import jm.util.Convert;
 import jm.util.Play;
 
 @Controller
 @SessionAttributes("melodies")
 public class Melody {
-//private HashMap<String, Phrase> phrases;
+	
 	@Autowired MelodyGenerator melodyGenerator;
 	@Autowired WebApplicationContext ac;
 	
@@ -33,6 +40,20 @@ public class Melody {
 		return phrases;
 	}
 	
+
+	/*
+	 * The @PostConstruct method is called by Spring after 
+	 * object creation and dependency injection
+	 */
+
+	@RequestMapping("loadMelodies.do")
+	public String loadMelodies(@ModelAttribute("melodies") ArrayList<Phrase> phrasemap){
+		ArrayList<Phrase> phrasesHolder = melodyGenerator.getMelodies();
+		for(Phrase phrase: phrasesHolder){
+			phrasemap.add(phrase);
+		}
+		return "index.jsp";
+	}
 	@RequestMapping("setTitle.do")
 	public String addTitle(@RequestParam("title") String title){
 		melodyGenerator.newPhrase(title);
@@ -64,7 +85,7 @@ public class Melody {
 //		File f = new File(ac.getServletContext().getRealPath("/WebContent/midi")  + title);
 //		Write.midi(melodyGenerator.getPhrase(), ac.getServletContext().getRealPath("/") + title);
 //		System.out.println(f.getCanonicalPath());
-		Note n = new Note(120, 4.0);
+		//Note n = new Note(120, 4.0);
 		//Play.midi(n);
 		//Phrase phraseHolder = melodyGenerator.getPhrase();
 		Phrase phraseHolder = melodyGenerator.getPhrase();
@@ -75,14 +96,23 @@ public class Melody {
 		
 	}
 	
+	@RequestMapping("deleteMelody.do")
+	public String deleteMelody(@RequestParam("index") int index,
+			@ModelAttribute("melodies") ArrayList<Phrase> phrasemap){
+		phrasemap.remove(index);
+		return "index.jsp";
+		
+	}
 	@RequestMapping("editMelody.do")
 	public String editMelody(@RequestParam("index") int index,
 							@RequestParam("pitch") int pitch,
 							@RequestParam("rhythm") double rhythm,
-							@RequestParam("title") String title,
 							@RequestParam("noteIndex") int noteIndex,
 							@ModelAttribute("melodies") ArrayList<Phrase> phrasemap){
-		System.out.println(noteIndex);
+		
+		Phrase phraseHolder = phrasemap.get(index);
+		Note newNote = new Note(pitch, rhythm);
+		phraseHolder.setNote(newNote, noteIndex);
 //		Note newNote = new Note(pitch, rhythm);
 //		Phrase phraseToEdit = phrasemap.get(index);
 //		phraseToEdit.setNote(newNote, );
@@ -93,15 +123,14 @@ public class Melody {
 	public ModelAndView playPhrase(@RequestParam("title") String title,
 							@RequestParam("submit") String submit,
 							@ModelAttribute("melodies") ArrayList<Phrase> phrasemap){
-		System.out.println("in here");
-		System.out.println(submit);
-		System.out.println(title);
+		
 		ModelAndView mv = new ModelAndView();
 		switch(submit){
 		case "Play Melody":
 			for(Phrase phrase: phrasemap){
 				if(title.equals(phrase.getTitle())){
 					Play.midi(phrase);
+					
 				}
 				mv.setViewName("index.jsp");
 			}
@@ -109,7 +138,8 @@ public class Melody {
 		case "Phase Melody":
 			for(Phrase phrase: phrasemap){
 				if(title.equals(phrase.getTitle())){
-					phaseMelody(phrase);
+					Phrase phraseCopy = phrase.copy();
+					phaseMelody(phraseCopy);
 				}
 				mv.setViewName("index.jsp");
 			}
@@ -117,7 +147,8 @@ public class Melody {
 		case "Polyphony Melody":
 			for(Phrase phrase: phrasemap){
 				if(title.equals(phrase.getTitle())){
-					polyMelody(phrase);
+					Phrase phraseCopy = phrase.copy();
+					polyMelody(phraseCopy);
 				}
 				mv.setViewName("index.jsp");
 			}
@@ -136,7 +167,7 @@ public class Melody {
 					
 				}
 			}
-			mv.setViewName("results.jsp");
+			mv.setViewName("edit.jsp");
 		}
 		
 			
