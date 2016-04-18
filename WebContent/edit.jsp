@@ -7,16 +7,28 @@ uri="http://www.springframework.org/tags/form" prefix = "form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-3.3.6-dist/css/style.css">
+<title>Edit Melody</title>
 </head>
 <body>
-	
-		<div>${note}</div>
+	<div class = "container-fluid">
+		
+		<div class = "jumbotron text-center">
+			<h1>Edit the Phrase</h1>
+			<p>This is a list of all notes in the phrase in the order they appear</p>
+			<p>Edit each note as needed.  CLICKING DELETE WILL ERASE THE PHRASE</p>
+			
+		</div>
 		<c:forEach var = "note" items = "${notes}" varStatus = "status">
+		<div class = "row text-center">
+		<div class = "col-md-12 add-button">
 		<form action = "editMelody.do" method = "GET">
 		<input type = "hidden" name = "index" value = "${index}"><br>
-			<%-- <input type ="text" name = "pitch" value = "${note.pitch}">Pitch<br> --%>
+			
 			
 			<select name = "pitch">
 				<option value = "21">A</option>
@@ -42,16 +54,29 @@ uri="http://www.springframework.org/tags/form" prefix = "form" %>
 				<option value = "6">6</option>
 			</select>
 			<input type = "hidden" name = "noteIndex" value = "${status.index}">
-			<input type ="text" name = "rhythm" value = "${note.rhythmValue}">Duration<br>
+			<select name = "rhythm">
+				<option value = "4.0">Whole Note</option>
+				<option value = "2.0">Half Note</option>
+				<option value = "1.0">Quarter Note</option>
+				<option value = "0.5">Eighth Note</option>
+			</select>
+			<%-- <input type ="text" name = "rhythm" value = "${note.rhythmValue}">Duration<br> --%>
 			<input type = "submit" name = "submit" value = "Edit">
-			<input type = "submit" name = "submit" value = "Cancel">
+			
 				
 		</form>
+		</div>
+		</div>
 	</c:forEach>
-	
+	<div class = "row text-center">
+	<div class = "col-md-12 add-button">
 	<form action ="deleteMelody.do" method = "GET">
 		<input type = "hidden" name = "index" value = "${index}"><br>
-		<input type = "submit" name = "submit" value = "Delete"> 
+		<input class = "btn-danger" type = "submit" name = "submit" value = "Delete"> 
+		<input type = "submit" name = "submit" value = "Cancel">
 	</form>
+	</div>
+	</div>
+</div>
 </body>
 </html>

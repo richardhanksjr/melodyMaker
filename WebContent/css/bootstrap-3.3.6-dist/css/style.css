@@ -1,0 +1,29 @@
+body{
+	
+
+    background-image: url("http://4.bp.blogspot.com/-olvw7jgL0gs/TV1nV8VB9GI/AAAAAAAAIkA/eI5Z6lqxg9Q/s1600/blogbg%2Bmusic2.jpg");
+    
+  
+}
+.phraseButtons{
+	margin: auto;
+}
+
+
+
+
+.load-row{
+	margin-top: 10px;
+}
+
+.jumbotron{
+	background-color: #F2F2F2;
+}
+
+h2, h3{
+	color:#0B1240;
+}
+
+.add-button{
+	margin:5px;
+}

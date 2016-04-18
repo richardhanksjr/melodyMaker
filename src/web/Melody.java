@@ -49,8 +49,11 @@ public class Melody {
 	}
 	@RequestMapping("setTitle.do")
 	public String addTitle(@RequestParam("title") String title){
+		if(title.contains(" ")){
+			title = title.substring(0, title.indexOf(" "));
+		}
 		melodyGenerator.newPhrase(title);
-		return "index.jsp";
+		return "add.jsp";
 		
 	}
 	@RequestMapping("addNote.do")
@@ -61,7 +64,7 @@ public class Melody {
 		int pitchInt = pitch + (octave*12);
 		Note note = new Note(pitchInt, duration);
 		melodyGenerator.addNoteToPhrase(note);
-		return "index.jsp";	
+		return "add.jsp";	
 	}
 
 	@RequestMapping("addMelody.do")
